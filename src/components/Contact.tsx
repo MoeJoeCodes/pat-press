@@ -15,17 +15,37 @@ export const Contact = () => {
     email: "",
     message: ""
   });
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Quote Request Received!",
-      description: "We'll get back to you within 24 hours."
-    });
-    setFormData({
-      name: "",
-      email: "",
-      message: ""
-    });
+    try {
+      const res = await fetch("https://formspree.io/f/mjggbyoz", {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+      if (res.ok) {
+        toast({
+          title: "Quote Request Received!",
+          description: "We'll get back to you within 24 hours."
+        });
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to send message. Please try again later.",
+          variant: "destructive"
+        });
+      }
+    } catch {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive"
+      });
+    }
   };
   return <section id="contact" className="relative py-24 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-background to-background" />
