@@ -1,0 +1,26 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.patpress.co.za"
+        }
+      ],
+      "destination": "https://patpress.co.za/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "protocol",
+          "value": "http"
+        }
+      ],
+      "destination": "https://patpress.co.za/$1",
+      "permanent": true
+    }
+  ]
+}
